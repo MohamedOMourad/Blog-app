@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import PopUpForm from './PopUpForm';
-import { Button } from 'react-bootstrap';
+import { Button, Navbar } from 'react-bootstrap';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { NewContext } from './Context';
 import { useContext } from 'react';
@@ -14,7 +14,7 @@ function NavBar({ setPosts }) {
     }
     return (
             <div >
-                <header className={`${status ? theme.secondary : theme.secondary} d-flex justify-content-between align-items-center p-2 nav m-0 `}>
+            <Navbar fixed='top' className={`${status ? theme.secondary : theme.secondary} d-flex justify-content-between align-items-center p-2  m-0 `}>
                     <Link to='/' className='text-decoration-none'><div className="text-uppercase fw-bolder text-white"> My Blog</div></Link>
                     <div className='d-flex'>
                         <div>
@@ -29,7 +29,7 @@ function NavBar({ setPosts }) {
                         </Button>
                         </div>
                     </div>
-                </header>
+            </Navbar >
                 < PopUpForm show={modalShow}
                     onHide={() => setModalShow(false)}
                     setPosts={setPosts}

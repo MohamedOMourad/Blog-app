@@ -5,26 +5,26 @@ import { Routes, Route } from 'react-router-dom';
 import PostDetails from './Pages/PostDetails';
 import { NewContext } from './Components/Context';
 import { useContext } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
+
+
 
 
 
 
 function App() {
   const { theme, status } = useContext(NewContext);
-  // useEffect(() => {
-  //   const useAPI = axios.create({ baseURL: ' https://jsonplaceholder.typicode.com' });
-  //   //Get Posts
-  //   useAPI.get('/users').then(user => setUSers(user.data));
-  // }, []);
+
 
   return (
     <div className={`${status ? theme.light : theme.dark} `}>
-        <NavBar />
-        <Routes>
-          <Route path="/post/:id" element={<PostDetails/>} />
-          <Route path='/' element={<Home/>} />
-        </Routes>
-      </div>
+      <NavBar />
+      <Routes>
+        <Route path="/post/:id" element={<PostDetails />} />
+        <Route path='/' element={<Home />} />
+      </Routes>
+    </div>
   );
 }
 

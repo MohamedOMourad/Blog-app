@@ -1,7 +1,7 @@
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+* {
+  box-sizing: border-box ;
+  margin: 0 ;
+  padding: 0 ;
 }
 
 .light {
@@ -17,6 +17,7 @@
 }
 
 .dark {
+  /* min-height: 100vh; */
   background-color: #0d1117;
   color: #fff;
   margin: 0;

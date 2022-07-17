@@ -30,12 +30,22 @@ function Posts() {
         userAPI.get('/users').then(users => dispatch(getAllUsers(users.data)));
     }, []);
 
+    async function loop() {
+        // const useAPI = axios.create({ baseURL: 'https://api.tawwr.com' });
+        // for (let i = 1; i <= 2000; i++){
+        //     await useAPI.delete(`/posts/${i}`);
+        // }
+    }
+    useEffect(() => {
+        loop();
+    }, []);
+
     return (
-        <Container>
+        <Container className='py-1 '>
             {
                 posts.map(post => {
                     return (
-                        <Card className=' d-flex my-2 mt-5 card'>
+                        <Card key={post.id} className=' d-flex  card'>
                             <Card.Header className={`${status ? theme.secondary : theme.secondary} `}>
                                 <div>
                                     {users.map(user => user.id === post.userId && user.name)}
@@ -50,18 +60,20 @@ function Posts() {
                                     {post.body}
                                 </Card.Text>
                                 <Card.Text >
-                                    <div className=' w-50'>
-                                        <Comment post={post} />
-                                    </div>
-                                    <div>
-                                        {post.comments.length} Comments
-                                    </div>
-                                    {/* <div>
-                                                <Vote post={post} setPosts={setPosts} /> 
-                                            </div> */}
-                                    <Link to={'/post/' + post.id}><Button variant="outline-light">show more</Button></Link>
                                 </Card.Text>
                             </Card.Body>
+                            <Card.Footer className={`${status ? theme.secondary : theme.secondary} d-flex align-items-center justify-content-between`}>
+                                <div>
+                                    <Vote post={post} />
+                                </div>
+                                <div className='me-3'>
+                                    <Comment post={post} />
+                                </div>
+                                {post.comments.length} Comments
+                                <div >
+                                    <Link to={'/post/' + post.id}><Button variant="outline-light">show more</Button></Link>
+                                </div>
+                            </Card.Footer>
                         </Card>
                     )
                 })
