@@ -3,49 +3,66 @@ import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Comment from './Comment';
 import { NewContext } from './Context';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import axios from 'axios';
 import Vote from './Vote';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllPosts } from '../redux/actions/post.action';
+import { getAllUsers } from '../redux/actions/user.action';
 
+function Posts() {
 
-function Posts({ posts, users, setPosts }) {
     const { theme, status } = useContext(NewContext);
+    const posts = useSelector(state => state.postsReducer);
+    const users = useSelector(state => state.UsersReducer);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const API = axios.create({ baseURL: 'https://api.tawwr.com' });
+        //Get Posts
+        API.get('/posts').then(response => dispatch(getAllPosts(response.data.data)));
+    }, []);
+
+    useEffect(() => {
+        const userAPI = axios.create({ baseURL: ' https://jsonplaceholder.typicode.com' });
+        //Get Posts
+        userAPI.get('/users').then(users => dispatch(getAllUsers(users.data)));
+    }, []);
+
     return (
         <Container>
             {
                 posts.map(post => {
                     return (
-                        <Row key={post.id} >
-                            <Col className='d-flex justify-content-center align-items-center flex-wrap'>
-                                <Card className='my-2 w-75 '>
-                                    <Card.Header className={`${status ? theme.secondary : theme.secondary} d-flex justify-content-between`}>
-                                        <div>
-                                            {users.map(user => user.id === post.userId && user.name)}
-                                        </div>
-                                        <div >
-                                            {moment(post.createdAt).format(' h:m a')}
-                                        </div>
-                                    </Card.Header>
-                                    <Card.Body className={`${status ? theme.light : theme.dark} d-flex  justify-content-start flex-wrap alighn-items-center`}>
-                                        <Card.Title className='d-flex w-75'>{post.title}</Card.Title>
-                                        <Card.Text className='d-flex w-75'>
-                                            {post.body}
-                                        </Card.Text>
-                                        <Card.Text className='d-flex w-100  justify-content-between align-items-center'>
-                                            <div className=' w-50'>
-                                                <Comment post={post} setPosts={setPosts} />
-                                            </div>
-                                            <div>
-                                                {post.comments.length} Comments
-                                            </div>
-                                            <div>
+                        <Card className=' d-flex my-2 mt-5 card'>
+                            <Card.Header className={`${status ? theme.secondary : theme.secondary} `}>
+                                <div>
+                                    {users.map(user => user.id === post.userId && user.name)}
+                                </div>
+                                <div >
+                                    {moment(post.createdAt).format(' h:m a')}
+                                </div>
+                            </Card.Header>
+                            <Card.Body className={`${status ? theme.light : theme.dark} ّ`}>
+                                <Card.Title >{post.title}</Card.Title>
+                                <Card.Text >
+                                    {post.body}
+                                </Card.Text>
+                                <Card.Text >
+                                    <div className=' w-50'>
+                                        <Comment post={post} />
+                                    </div>
+                                    <div>
+                                        {post.comments.length} Comments
+                                    </div>
+                                    {/* <div>
                                                 <Vote post={post} setPosts={setPosts} /> 
-                                            </div>
-                                            <Link to={'/post/' + post.id}><Button variant="primary">show more</Button></Link>
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
-                        </Row>
+                                            </div> */}
+                                    <Link to={'/post/' + post.id}><Button variant="outline-light">show more</Button></Link>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
                     )
                 })
             }

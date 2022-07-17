@@ -1,10 +1,13 @@
 import { useFormik } from "formik";
 import axios from 'axios';
 import { Button, Form, InputGroup } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllPosts } from '../redux/actions/post.action';
 
 
 
-function Comment({ post, setPosts }) {
+function Comment({ post }) {
+    const dispatch = useDispatch();
 
     const addComment = async (comment) => {
         try {
@@ -12,7 +15,7 @@ function Comment({ post, setPosts }) {
             const API = axios.create({ baseURL: ' https://api.tawwr.com' });
             const sendComment = await API.post(`/posts/${post.id}/comment`, comment);
             const getPosts = await API.get('/posts');
-            setPosts(getPosts.data.data.sort((a, b) => a.id - b.id));
+            const updatePosts =  dispatch(getAllPosts(getPosts.data.data))
         } catch (error) {
             console.log('404! Not Found')
         }
@@ -36,7 +39,7 @@ function Comment({ post, setPosts }) {
                     type="text" placeholder="Enter Your Comment" name="body" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.title}
                     aria-describedby="basic-addon2"
                     />
-                <Button id="basic-addon2" variant="primary" type="submit">Add comment</Button>
+                <Button id="basic-addon2" variant="outline-light" type="submit">Add comment</Button>
             </InputGroup>
         </Form>
     )

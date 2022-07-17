@@ -1,8 +1,7 @@
 import moment from 'moment';
 
 
-function Post({ post, users }) {
-    // console.log(post);
+function PostCard() {
     return (
         <div>
             <h1>{post?.title}</h1>
@@ -15,4 +14,4 @@ function Post({ post, users }) {
     );
 }
 
-export default Post;
+export default PostCard;

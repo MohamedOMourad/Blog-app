@@ -7,15 +7,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from 'react-router-dom';
 import 'react-notifications/lib/notifications.css';
 import { TheContextProvider } from './Components/Context';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { reducers } from './redux/rducers';
 
+const store = createStore(reducers);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <TheContextProvider>
-  <BrowserRouter>
-    <App />
-    </BrowserRouter>
-  </TheContextProvider>
-
+  <Provider store={store}>
+    <TheContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </TheContextProvider>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
