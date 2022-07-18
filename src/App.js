@@ -18,7 +18,7 @@ function App() {
 
 
   return (
-    <div className={`${status ? theme.light : theme.dark} `}>
+    <div className='light'>
       <NavBar />
       <Routes>
         <Route path="/post/:id" element={<PostDetails />} />
@@ -31,3 +31,4 @@ function App() {
 export default App;
 
 //javascript optional chaining
+// className = {`${status ? theme.light : theme.dark} `}

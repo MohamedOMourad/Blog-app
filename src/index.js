@@ -10,6 +10,7 @@ import { TheContextProvider } from './Components/Context';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { reducers } from './redux/rducers';
+import "/node_modules/font-awesome/css/font-awesome.min.css";
 
 const store = createStore(reducers);
 const root = ReactDOM.createRoot(document.getElementById('root'));

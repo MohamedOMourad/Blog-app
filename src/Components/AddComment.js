@@ -5,10 +5,8 @@ import { useDispatch } from 'react-redux';
 import { getAllPosts } from '../redux/actions/post.action';
 
 
-
-function Comment({ post }) {
+function AddComment({ post }) {
     const dispatch = useDispatch();
-
     const addComment = async (comment) => {
         try {
             // Post Method
@@ -39,9 +37,9 @@ function Comment({ post }) {
                     type="text" placeholder="Enter Your Comment" name="body" onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.title}
                     aria-describedby="basic-addon2"
                 />
-                <Button id="basic-addon2" variant="outline-light" type="submit">Add comment</Button>
+                <Button id="basic-addon2" variant="outline-dark" type="submit">Add comment</Button>
             </InputGroup>
         </Form>
     )
 }
-export default Comment;
+export default AddComment;

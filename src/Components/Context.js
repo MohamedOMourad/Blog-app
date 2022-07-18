@@ -14,8 +14,8 @@ export const TheContextProvider = ({ children }) => {
             secondary: "dark-Secondary-color"
         }
     }
-    const [theme, setTheme] = useState(themes.darkMood)
-    const [status, setstatus] = useState(false);
+    const [theme, setTheme] = useState(themes.lightMood)
+    const [status, setstatus] = useState(true);
 
     const switchMood = (val) => {
         setstatus(!val)
